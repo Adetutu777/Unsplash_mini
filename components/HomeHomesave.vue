@@ -15,12 +15,13 @@
     </form>
     </div>
 
- <div class="row">
+  <div class="row">
 
     <div class="col-md-4"  v-for="data in unsplashImg" :key="data.id">
 <b-button id="show-btn" class="pt-0" style="background:none; border:none" @click="$bvModal.show('bv-modal-example')">
 
   <img class="img-img w-100 mt-5" style="border:5px solid pink"  :src="data.urls.regular" alt="image">
+     <!-- <p> {{ data.description }} </p> -->
        </b-button>
   </div>
 
@@ -28,16 +29,23 @@
   <b-modal id="bv-modal-example" class="" style="border:none" hide-footer>
    
     <img class="img-img w-50 mt-5" style="border:5px solid pink"  :src="data.urls.regular" alt="image">
-   
+    <h3>{{data.bio}}</h3>
+    hello
   </b-modal>
   </div>
   </div>
   </div>
+
+
+
+
+
+
 </template>
 
 <script>
  
-  import {  ref, useFetch, onMounted } from '@nuxtjs/composition-api';
+  import {  ref, useFetch } from '@nuxtjs/composition-api';
   import axios from 'axios'
   export default {
 
@@ -51,32 +59,13 @@
 
      
 
-    // useFetch(async () => {
-     
-    //   await axios.get('https://api.unsplash.com/search/photos?query=flower&client_id=process.env.VUE_APP_API_KEY')
-    //   // await axios.get('https://api.unsplash.com/search/photos?query=flower&client_id=process.env.VUE_APP_API_KEY')
-    //  .then( response => unsplashImg.value = response?.data.results)
-    // //  .then( console.log('hello', unsplashImg.value))
-    // //  .then(info=> console.log('hello', info))
-    //   .catch(error => console.log(error))
-    // })
-    useFetch(async (e) => {
-       let clientId=process.env.VUE_APP_API_KEY
-      //  let query = flower.value
-       const url = `https://api.unsplash.com/search/photos?&query=flower&client_id=${clientId}`
-        axios.get(url)
-         .then( response => unsplashImg.value = response?.data.results)
-       
-     
-    //   await axios.get('https://api.unsplash.com/search/photos?query=flower&client_id=process.env.VUE_APP_API_KEY')
-    //   // await axios.get('https://api.unsplash.com/search/photos?query=flower&client_id=process.env.VUE_APP_API_KEY')
-    //  .then( response => unsplashImg.value = response?.data.results)
-    // //  .then( console.log('hello', unsplashImg.value))
-    // //  .then(info=> console.log('hello', info))
-    //   .catch(error => console.log(error))
+    useFetch(async () => {
+      await axios.get('https://api.unsplash.com/search/photos?query=nature&client_id=8ol4_VssgaET9oFTpTaMB85YaM38KmeqCh4gDjIezmY')
+     .then( response => unsplashImg.value = response?.data.results)
+    //  .then( console.log('hello', unsplashImg.value))
+    //  .then(info=> console.log('hello', info))
+      .catch(error => console.log(error))
     })
-
-
 
   //   const invalidFeedback = computed(() => {
   //  if (name.value.length > 0) {
@@ -85,13 +74,9 @@
   //     return  'Please enter something.'
     
   // })
-  //  onMounted (() => {
-  //   console.log(process.env.VUE_APP_API_KEY)
-  //  })
 
        const selectPhotos  = (e) => {
-        let clientId=process.env.VUE_APP_API_KEY  
-        // let clientId='8ol4_VssgaET9oFTpTaMB85YaM38KmeqCh4gDjIezmY'  
+        let clientId='8ol4_VssgaET9oFTpTaMB85YaM38KmeqCh4gDjIezmY'  
         let query = myInput.value
         // let url = 'https://api.unsplash.com/search/photos?&client_id=" +clientId + "&query="+query';
         // const url = `${url}&query=${query}&client_id=${clientId}`;
@@ -113,7 +98,7 @@
 
 
      
-    return { unsplashImg, selectPhotos, clientId, myInput,query, }
+    return { unsplashImg, selectPhotos, clientId, myInput,query }
     // return { unsplashImg, invalidFeedback, name }
   }
 }
@@ -137,3 +122,6 @@ font-size: 3rem;
 color: rgb(255, 0, 128);
 }
 </style>
+
+
+
