@@ -37,7 +37,7 @@
 
 <script>
  
-  import {  ref, useFetch, onMounted } from '@nuxtjs/composition-api';
+  import {  ref, useFetch } from '@nuxtjs/composition-api';
   import axios from 'axios'
   export default {
 
@@ -49,7 +49,7 @@
 
     
     useFetch(async () => {
-      await axios.get(`https://api.unsplash.com/search/photos?&query=flower&client_id=${process.env.VUE_APP_API_KEY_TWO}`)
+      await axios.get(`https://api.unsplash.com/search/photos?&query=flower&client_id=${process.env.VUE_APP_API_KEY}`)
      .then( response => unsplashImg.value = response?.data.results)
     //  .then( console.log('hello', unsplashImg.value))
       .catch(error => console.log(error))
@@ -63,9 +63,6 @@
         axios.get(url)
          .then( response => unsplashImg.value = response?.data.results)
       .catch(error => console.log(error))
-      
-      mesg_in_submission.value = true;
-
       myInput.value=''
        }
 
