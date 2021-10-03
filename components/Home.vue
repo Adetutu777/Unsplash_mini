@@ -43,16 +43,13 @@
 
   setup() {
     let unsplashImg = ref('')
-    let clientId = ref('')
-    let clientIdd = ref('')
     let myInput = ref('')
     let query = ref('')
     let mesg_in_submission= ref( false );
 
     
     useFetch(async () => {
-     let clientId=process.env.VUE_APP_API_KEY_TWO
-      await axios.get(`https://api.unsplash.com/search/photos?&query=flower&client_id=${clientId}`)
+      await axios.get(`https://api.unsplash.com/search/photos?&query=flower&client_id=${process.env.VUE_APP_API_KEY_TWO}`)
      .then( response => unsplashImg.value = response?.data.results)
     //  .then( console.log('hello', unsplashImg.value))
       .catch(error => console.log(error))
@@ -61,9 +58,8 @@
 
 
        const selectPhotos  = (e) => {
-        let clientId=process.env.VUE_APP_API_KEY
         let query = myInput.value
-        const url = `https://api.unsplash.com/search/photos?&query=${query}&client_id=${clientId}`
+        const url = `https://api.unsplash.com/search/photos?&query=${query}&client_id=${process.env.VUE_APP_API_KEY}`
         axios.get(url)
          .then( response => unsplashImg.value = response?.data.results)
       .catch(error => console.log(error))
@@ -73,7 +69,7 @@
       myInput.value=''
        }
 
-    return { unsplashImg, selectPhotos, clientId, myInput,query, mesg_in_submission, clientIdd }
+    return { unsplashImg, selectPhotos,  myInput,query, mesg_in_submission }
   }
 }
   
