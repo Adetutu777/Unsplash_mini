@@ -6,7 +6,6 @@
   <div class="input-container">
     <input class="" type="text" required  placeholder="Search Photos"
     v-model="myInput" />
-    <!-- <button class="button btn  sub-btn" type="submit" @click.prevent= "selectPhotos">Search</button> -->
     <div>
          <button type="submit"  :disabled="mesg_in_submission"
           class="button btn btn-lg sub-btn">Send</button>
@@ -16,10 +15,10 @@
 
  <div class="row">
 
-    <NuxtLink to="" class="col-md-4" v-for="data in unsplashImg" :key="data.id">
+    <NuxtLink :to="`/Images/${data.id}`" class="col-md-4 " v-for="data in unsplashImg" :key="data.id">
 
 
-  <img class="img-img w-100 mt-5" syle="border:5px solid pink"  :src="data.urls.regular" alt="image">
+  <img class="img-img w-100 animate__animated animate__pulse mt-5" syle="border:5px solid pink"  :src="data.urls.regular" alt="image">
 
   </NuxtLink>
 <!--
@@ -43,30 +42,19 @@
   export default {
 
   setup() {
-    const unsplashImg = ref('')
+    let unsplashImg = ref('')
     let clientId = ref('')
     let clientIdd = ref('')
     let myInput = ref('')
     let query = ref('')
     let mesg_in_submission= ref( false );
 
-
-    // useFetch(async (e) => {
-    //    let clientIdd=process.env.VUE_APP_API_KEY_TWO
-    //      const url = `https://api.unsplash.com/search/photos?&query=flower&client_id=${clientIdd}`
-    //     axios.get(url)
-    //      .then( response => unsplashImg.value = response?.data.results)
-    //   .catch(error => console.log(error))
-    // })
-
     
     useFetch(async () => {
      let clientId=process.env.VUE_APP_API_KEY_TWO
       await axios.get(`https://api.unsplash.com/search/photos?&query=flower&client_id=${clientId}`)
-      // await axios.get('https://api.unsplash.com/search/photos?query=flower&client_id=process.env.VUE_APP_API_KEY')
      .then( response => unsplashImg.value = response?.data.results)
     //  .then( console.log('hello', unsplashImg.value))
-    //  .then(info=> console.log('hello', info))
       .catch(error => console.log(error))
     })
 
@@ -79,7 +67,7 @@
         axios.get(url)
          .then( response => unsplashImg.value = response?.data.results)
       .catch(error => console.log(error))
-
+      
       mesg_in_submission.value = true;
 
       myInput.value=''
