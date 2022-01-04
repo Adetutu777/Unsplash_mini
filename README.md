@@ -4,3 +4,5 @@
 ### Unsplash Clone
 
  - Link: https://unsplash-mini.netlify.app/
+
+Things to do next: Work on the modal popup when user clieck on each image
